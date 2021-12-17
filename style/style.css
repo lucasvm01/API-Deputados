@@ -1,3 +1,5 @@
+
+
 .quadroDeputado{
     border:1px solid black;
     width: fit-content;
@@ -9,6 +11,9 @@
   
   display: grid;
   grid-template-columns: repeat(4,1fr);
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
 }
 
 
@@ -65,6 +70,7 @@
     line-height: 1.6;
     color: #666;
     background: #F6F6F6;
+    
   }
   
   #root {

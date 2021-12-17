@@ -1,4 +1,5 @@
 // Adaptado de <https://dadosabertos.camara.leg.br/howtouse/2017-05-16-js-resultados-paginados.html>
+// Adaptado de <https://www.w3schools.com/howto/howto_css_modals.asp>
 
 let urlPartido= 'https://dadosabertos.camara.leg.br/api/v2/partidos?ordem=ASC&ordenarPor=sigla';
 var listaDeps = new Array();
@@ -165,8 +166,6 @@ function mostraDeputado (lista){
     div.appendChild(foto);
     div.appendChild(nome);
     div.appendChild(partido);
-
-    
     
     return div;
 
@@ -236,11 +235,13 @@ function verDespesas(index){
     buscarListaGastos(urlGastosNova);
 }
 
+
 function mostrarDespesas(){
     let despesas = document.createElement("p");
     let cont = 0;
     let j=0;
 
+    despesas.setAttribute("id","gastos");
     despesas.setAttribute("style","color:black");
 
         while(listaGastos[j]){
@@ -248,7 +249,7 @@ function mostrarDespesas(){
             j++;
         }
 
-    despesas.innerHTML = cont;
+    despesas.innerHTML = cont.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     modalContent.appendChild(despesas);
     mostrarModal();
 }
@@ -267,11 +268,20 @@ function mostrarModal(){
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
+  removerDespesas();
+  listaGastos = new Array();
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+    removerDespesas();
+    listaGastos = new Array();
   }
+}
+
+function removerDespesas(){
+    let p = document.getElementById("gastos");
+    modalContent.removeChild(p);
 }
