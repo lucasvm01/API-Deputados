@@ -5,6 +5,7 @@ let urlPartido= 'https://dadosabertos.camara.leg.br/api/v2/partidos?ordem=ASC&or
 var listaDeps = new Array();
 var listaPart = new Array();
 var listaGastos = new Array();
+var indexDeputado = 0;
 
 
 // Modal example
@@ -177,8 +178,6 @@ var buscarBotao = document.querySelector('#buscar').onclick = function(){
     buscarListaDeps(urlBase);
 }
 
-
-
 function mostrarPerfil(){
     let i=0;
     let bloco = document.getElementById('blocoPerfil');
@@ -191,12 +190,10 @@ function mostrarPerfil(){
 
     while (listaDeps[i]) {
         deputado = mostraDeputado(listaDeps[i]);
-        deputado.setAttribute("onclick", "verDespesas(" + listaDeps[i].id + ")");
+        deputado.setAttribute("onclick", "mostrarModal(" + listaDeps[i].id + ")");
         div.appendChild(deputado);
         i++;
     }
-
-    let modoCard = document.getElementsByClassName(".card");
 
     listaDeps = new Array();
 
@@ -232,32 +229,43 @@ function gerarURL(){
 
 let urlGastos = "https://dadosabertos.camara.leg.br/api/v2/deputados/";
 
-function verDespesas(index){
-    let urlGastosNova = urlGastos + index + "/despesas?ordem=ASC&ordenarPor=ano";
+document.querySelector("#botaoGastos").onclick = function(){
+    removerDespesas();
+    verDespesas();
+}
+
+function verDespesas(){
+    let comboAno = document.getElementById("comboAno");
+    let comboMes = document.getElementById("comboMes");
+    let urlGastosNova = urlGastos + indexDeputado + "/despesas?ano=" + comboAno.options[comboAno.selectedIndex].text
+                            + "&mes=" + comboMes.options[comboMes.selectedIndex].text + "&ordem=ASC&ordenarPor=ano";
     buscarListaGastos(urlGastosNova);
 }
 
-
 function mostrarDespesas(){
     let despesas = document.createElement("p");
+    let textoDespesas = document.createElement("h");
     let cont = 0;
     let j=0;
 
     despesas.setAttribute("id","gastos");
     despesas.setAttribute("style","color");
 
-        while(listaGastos[j]){
-            cont += listaGastos[j].valorLiquido;
-            j++;
-        }
+    textoDespesas.textContent = "Gastos do mês:";
+    textoDespesas.setAttribute("id","textoGastos");
+
+    while(listaGastos[j]){
+        cont += listaGastos[j].valorLiquido;
+        j++;
+    }
 
     despesas.innerHTML = cont.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    modalContent.appendChild(textoDespesas);
     modalContent.appendChild(despesas);
-    mostrarModal();
 }
 
-function mostrarModal(){
-    
+function mostrarModal(index){
+    indexDeputado = index;
     modal.style.display = "block";
 }
 
@@ -285,7 +293,12 @@ window.onclick = function(event) {
 
 function removerDespesas(){
     let p = document.getElementById("gastos");
-    modalContent.removeChild(p);
+    let h = document.getElementById("textoGastos");
+    if(p){
+        modalContent.removeChild(p);
+        modalContent.removeChild(h);
+        listaGastos = new Array();
+    }
 }
 
 var corMode = document.querySelector("#botaoCor").onclick = function(){
