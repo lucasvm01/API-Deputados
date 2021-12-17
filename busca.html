@@ -8,12 +8,19 @@
     <link href="style/style.css" rel="stylesheet">
 </head>
 <body>
-    <div><!-- Busca por filtros !-->
+    <div class="filtros" id="divBotaoCor" style="background: white">
+        <button id="botaoCor">Alterar cor</button>
+    </div>
+    <div>
+        <h1>Portal da Transparência</h1>
+    </div>
+    <div class="filtros" id="divFiltros" style="background: white;color: 666"><!-- Busca por filtros !-->
+        <p></p>
         <div>
             <h>Filtros:</h>
         </div>
-        <div> <!-- Filtro por nome -->
-            <h id="nomeDeputado">Nome</h>
+        <div > <!-- Filtro por nome -->
+            <h id="nomeDeputado">Nome do candidato</h>
             <input type="text" id="textNome">
         </div>
         <div> <!-- Filtro por partido -->
@@ -23,14 +30,10 @@
             </select>
         </div>
         <button id="buscar" >Buscar</button> <!-- Busca os deputados-->
+        <p>
     </div>  
     <div id="blocoPerfil" class="blocoPerfil"> <!-- Perfis deputados // Alterar para esta tela após buscar-->
         
-
-
-            
-        
-
         <!-- <a href="https://www.google.com">
             <br/>
         <img id="fotodep" src="img/anon.jpg" width="200" height="266"/>
@@ -45,23 +48,25 @@
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
-        <div id="modal-content" class="modal-content">
+        <div id="modal-content" class="modal-content" style="background-color: #fefefe;color:#666">
             <span class="close">&times;</span>
             <div>
+                <h2>Busca de despesas</h1>
+                </br>
                 <h>Selecione o ano:</h>
                 <select id="textAno">
                     <option value="1">Ano</option>
                 </select>
-            </div>
-            <div>
                 <h>Selecione o mês:</h>
                 <select id="textMes">
                     <option>Mês</option>
                 </select>
+                <button id="botaoMes">Buscar</button>
             </div>
-            <button id="botaoMes">Buscar</button>
             </br>
-            <h>Gastos do mês:</h>
+            <div>
+                <h>Gastos do mês:</h>
+            </div>
             </br>
         </div>
 

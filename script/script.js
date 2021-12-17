@@ -161,7 +161,8 @@ function mostraDeputado (lista){
     nome.innerHTML = lista.nome;
     partido.innerHTML = lista.siglaPartido;
 
-    div.setAttribute("class","quadroDeputado");
+    div.setAttribute("class","card");
+
     div.appendChild(linha);
     div.appendChild(foto);
     div.appendChild(nome);
@@ -190,11 +191,12 @@ function mostrarPerfil(){
 
     while (listaDeps[i]) {
         deputado = mostraDeputado(listaDeps[i]);
-        deputado.setAttribute("id",i.toString());
         deputado.setAttribute("onclick", "verDespesas(" + listaDeps[i].id + ")");
         div.appendChild(deputado);
         i++;
     }
+
+    let modoCard = document.getElementsByClassName(".card");
 
     listaDeps = new Array();
 
@@ -242,7 +244,7 @@ function mostrarDespesas(){
     let j=0;
 
     despesas.setAttribute("id","gastos");
-    despesas.setAttribute("style","color:black");
+    despesas.setAttribute("style","color");
 
         while(listaGastos[j]){
             cont += listaGastos[j].valorLiquido;
@@ -284,4 +286,33 @@ window.onclick = function(event) {
 function removerDespesas(){
     let p = document.getElementById("gastos");
     modalContent.removeChild(p);
+}
+
+var corMode = document.querySelector("#botaoCor").onclick = function(){
+    alterarCor();
+}
+
+var cor = 1;
+function alterarCor(){
+    let modoBotaoFiltro = document.getElementById("divBotaoCor");
+    let modoFiltros = document.getElementById("divFiltros");
+    let modoModal = document.getElementById("modal-content");
+    
+    if(cor === 1){
+        modoBotaoFiltro.style.backgroundColor = "#717171";
+        modoFiltros.style.backgroundColor = "#717171";
+        modoFiltros.style.color = "white";
+        modoModal.style.backgroundColor = "#717171";
+        modoModal.style.color = "white";
+        
+        cor = 0;
+    } else{
+        modoBotaoFiltro.style.backgroundColor = "white";
+        modoFiltros.style.backgroundColor = "white";
+        modoFiltros.style.color = "#666";
+        modoModal.style.backgroundColor = "#fefefe";
+        modoModal.style.color = "#666";
+       
+        cor = 1;
+    }
 }
